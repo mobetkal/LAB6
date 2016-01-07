@@ -6,8 +6,12 @@
 
 using namespace std;
 
-bool funkcja_odwr(int i, int j) { return (i>j); }
+bool F_odwrotna(int i, int j) { return (i>j); }
 void zad3();
+void Print(int vec)
+{
+	cout << vec << " ";
+}
 
 void main()
 {
@@ -20,26 +24,21 @@ void main()
 
 	//Wyświetlanie
 	cout << "Wygenerowany wektor 100 elementow: \n";
-	for (int i = 0; i < vec.size(); i++)
-	{
-		if (i % 10 == 0)
-			cout << endl;
-		cout << ' ' << vec[i];
-	}
+	for_each(vec.begin(), vec.end(), Print);
+	
 	cout << "\n\n\n";
 
 
 	sort(vec.begin(), vec.end());
 	vec.erase(unique(vec.begin(), vec.end()), vec.end());
 
+	//Po zrobieniu unique i erase skracającego tablicę nie będzie unikalnych elementów
+	//bo usunie powtarzające się po sobie jak będzie 2 2 2 4 2 2 to powstanie 2 4 2
+	//nalezy posortowac wektor :)
+
 	//Wyświetlanie
 	cout << "Elementy unikalne: \n";
-	for (int i = 0; i < vec.size(); i++)
-	{
-		if (i % 10 == 0)
-			cout << endl;
-		cout << ' ' << vec[i];
-	}
+	for_each(vec.begin(), vec.end(), Print);
 	cout << "\n\n\n";
 
 	// ----------------------------------------- ZAD 2
@@ -48,26 +47,24 @@ void main()
 
 	//Wyświetlanie
 	cout << "Elementy odwrocone: \n";
-	for (int i = 0; i < vec.size(); i++)
-	{
-		if (i % 10 == 0)
-			cout << endl;
-		cout << ' ' << vec[i];
-	}
+	for_each(vec.begin(), vec.end(), Print);
 	cout << "\n\n\n";
 
-	//std::vector<int>::iterator it;
 	int val = 2;
 	auto it = find(vec.begin(), vec.end(), val);
 	if (it != vec.end())
-		std::cout << "Znaleziono funkcja FIND: " << *it << '\n';
+		cout << "Znaleziono funkcja FIND: " << *it << endl;
 	else
-		std::cout << "BRAK\n";
+		cout << "BRAK\n";
 
-	if (binary_search(vec.begin(), vec.end(), 2, funkcja_odwr))
-		cout << "Znaleziono funkcja BINARY_SEARCH: " << val << '\n';
+	if (binary_search(vec.begin(), vec.end(), 2, F_odwrotna))
+		cout << "Znaleziono funkcja BINARY_SEARCH: " << val << endl;
 	else 
 		cout << "BRAK\n";
+
+	//Po zrobieniu (binary_search(vec.begin(), vec.end(), 2)) nie znajdzie
+	//należy dorobic do niego comparator F_odwrotna
+
 	cout << "\n\n\n";
 
 	// ----------------------------------------- ZAD 3
