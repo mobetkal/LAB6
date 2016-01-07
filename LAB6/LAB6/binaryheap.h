@@ -13,7 +13,7 @@ class BinaryHeap
 public:
 	BinaryHeap(std::vector<T>&& Wector, const Comp& comparator) : Wector(std::move(Wector)), comparator(comparator)
 	{
-		std::make_heap(Wector.begin(), Wector.end(), comparator);
+		std::make_heap(this->Wector.begin(), this->Wector.end(), comparator);
 	}
 	void AddToHeap(const T& value)
 	{

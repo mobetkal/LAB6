@@ -81,11 +81,17 @@ void main()
 	generate(Vector.begin(), Vector.end(), [&]{ return dis2(engine); });
 
 	for_each(Vector.begin(), Vector.end(), Print);
+	cout << "\n\n\n";
 
 	auto comp = [](int a, int b){ return (int)(a / 10) % 10 > (int)(b / 10) % 10; };
 	BinaryHeap<int, decltype(comp)> Test(move(Vector), comp);
 
-	for_each(Test.GetVector().begin(), Test.GetVector().end(), [](int val){cout << val << " "; });
-	
+	//for_each(Test.GetVector().begin(), Test.GetVector().end(), [](int val){cout << val << " "; });
+	while (!Test.CheckHeap())
+	{
+		cout << Test.GetValue() << ", ";
+		Test.DeleteFromHeap();
+	}
+
 	system("PAUSE");
 }
