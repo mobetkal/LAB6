@@ -3,10 +3,10 @@
 #include<vector>
 #include <algorithm>
 #include <cmath>
+#include "binaryheap.h"
 
 using namespace std;
 
-bool F_odwrotna(int i, int j) { return (i>j); }
 void zad3();
 void Print(int vec)
 {
@@ -18,7 +18,7 @@ void main()
 	// ----------------------------------------- ZAD 1
 	cout << "ZADANIE 1\n\n";
 	default_random_engine gen;
-	uniform_int_distribution<> dis(1, 10);
+	uniform_int_distribution<int> dis(1, 10);
 	vector<int> vec(100);
 	generate(vec.begin(), vec.end(), [&]{ return dis(gen); });///[&] wszyst zmienne przez ref
 
@@ -38,7 +38,7 @@ void main()
 
 	//Wyświetlanie
 	cout << "Elementy unikalne: \n";
-	for_each(vec.begin(), vec.end(), Print);
+	for_each(vec.begin(), vec.end(), [](int val){cout << val << " "; });
 	cout << "\n\n\n";
 
 	// ----------------------------------------- ZAD 2
@@ -47,7 +47,7 @@ void main()
 
 	//Wyświetlanie
 	cout << "Elementy odwrocone: \n";
-	for_each(vec.begin(), vec.end(), Print);
+	for_each(vec.begin(), vec.end(), [](int val){cout << val << " "; });
 	cout << "\n\n\n";
 
 	int val = 2;
@@ -57,13 +57,13 @@ void main()
 	else
 		cout << "BRAK\n";
 
-	if (binary_search(vec.begin(), vec.end(), 2, F_odwrotna))
+	if (binary_search(vec.begin(), vec.end(), 2, [](int i, int j) { return (i>j); }))
 		cout << "Znaleziono funkcja BINARY_SEARCH: " << val << endl;
 	else 
 		cout << "BRAK\n";
 
 	//Po zrobieniu (binary_search(vec.begin(), vec.end(), 2)) nie znajdzie
-	//należy dorobic do niego comparator F_odwrotna
+	//należy dorobic do niego comparator [](int i, int j) { return (i>j); }
 
 	cout << "\n\n\n";
 
@@ -73,9 +73,19 @@ void main()
 	zad3();
 
 	// ----------------------------------------- ZAD 4
-	cout << "ZADANIE 4\n\n";
+	cout << "ZADANIE 7\n\n";
+	
+	default_random_engine engine;
+	uniform_int_distribution<int> dis2(8, 120);
+	vector<int> Vector(40);
+	generate(Vector.begin(), Vector.end(), [&]{ return dis2(engine); });
 
-	//JESZCZE BRAK! :)
+	for_each(Vector.begin(), Vector.end(), Print);
 
+	auto comp = [](int a, int b){ return (int)(a / 10) % 10 > (int)(b / 10) % 10; };
+	BinaryHeap<int, decltype(comp)> Test(move(Vector), comp);
+
+	for_each(Test.GetVector().begin(), Test.GetVector().end(), [](int val){cout << val << " "; });
+	
 	system("PAUSE");
 }
