@@ -57,13 +57,13 @@ void main()
 	else
 		cout << "BRAK\n";
 
-	if (binary_search(vec.begin(), vec.end(), 2, [](int i, int j) { return (i>j); }))
+	if (binary_search(vec.begin(), vec.end(), 2, [](int a, int b) { return (a > b); }))
 		cout << "Znaleziono funkcja BINARY_SEARCH: " << val << endl;
 	else 
 		cout << "BRAK\n";
 
 	//Po zrobieniu (binary_search(vec.begin(), vec.end(), 2)) nie znajdzie
-	//należy dorobic do niego comparator [](int i, int j) { return (i>j); }
+	//należy dorobic do niego comparator [](int a, int b) { return (a>b); }
 
 	cout << "\n\n\n";
 
@@ -85,13 +85,15 @@ void main()
 
 	auto comp = [](int a, int b){ return (int)(a / 10) % 10 > (int)(b / 10) % 10; };
 	BinaryHeap<int, decltype(comp)> Test(move(Vector), comp);
+	Test.AddToHeap(1000);
+	Test.AddToHeap(1190);
 
-	//for_each(Test.GetVector().begin(), Test.GetVector().end(), [](int val){cout << val << " "; });
 	while (!Test.CheckHeap())
 	{
 		cout << Test.GetValue() << ", ";
 		Test.DeleteFromHeap();
 	}
+	cout << "\n\n\n";
 
 	system("PAUSE");
 }

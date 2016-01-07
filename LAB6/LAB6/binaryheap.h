@@ -17,7 +17,7 @@ public:
 	}
 	void AddToHeap(const T& value)
 	{
-		std::push_back(value);
+		Wector.push_back(value);
 		std::push_heap(Wector.begin(), Wector.end(), comparator);
 	}
 	const T& GetValue()
